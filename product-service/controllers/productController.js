@@ -19,7 +19,7 @@ exports.getProducts = async (req, res) => {
         res.status(400).json({ error: error.message });
     }
 };
-exports.getProductById = async (req, res) => {
+exports.getProductById = async (req, res) => {    
     try {
         const product = await Product.findOne({ _id: req.params.id, isActive: true });
         if (!product) {
