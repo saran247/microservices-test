@@ -40,7 +40,7 @@ exports.updateUser = async (req, res) => {
     }
 };
 
-// Soft Delete User
+
 exports.softDeleteUser = async (req, res) => {
     try {
         const user = await User.findByIdAndUpdate(req.params.id, { isActive: false }, { new: true });
