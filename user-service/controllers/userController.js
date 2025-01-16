@@ -1,6 +1,6 @@
 const User = require('../models/User');
 
-// Create User
+
 exports.createUser = async (req, res) => {
     try {
         const user = await User.create(req.body);
@@ -10,7 +10,7 @@ exports.createUser = async (req, res) => {
     }
 };
 
-// Get All Users
+
 exports.getUsers = async (req, res) => {
     try {
         const users = await User.find({ isActive: true });
@@ -19,8 +19,18 @@ exports.getUsers = async (req, res) => {
         res.status(400).json({ error: error.message });
     }
 };
+exports.getUserById = async (req, res) => {
+    try {
+        const user = await User.findOne({ _id: req.params.id, isActive: true });
+        if (!user) {
+            return res.status(404).json({ message: "User not found or has been deactivated" });
+        }
+        res.status(200).json(user);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+};
 
-// Update User
 exports.updateUser = async (req, res) => {
     try {
         const user = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
